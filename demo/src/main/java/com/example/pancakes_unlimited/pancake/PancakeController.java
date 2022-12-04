@@ -1,22 +1,24 @@
 package com.example.pancakes_unlimited.pancake;
 
 import entities.PancakeEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/pancake")
 public class PancakeController {
-    private final PancakeRepository repository;
+    private final IPancakeService service;
 
-    public PancakeController(PancakeRepository repository) {
-        this.repository = repository;
+    public PancakeController(IPancakeService service) {
+        this.service = service;
     }
 
-    @PostMapping("/pancake")
-    public  PancakeEntity newPancake(@RequestBody PancakeEntity newPancake) {
-        return repository.save(newPancake);
+    @PostMapping("/")
+    public void newPancake(@RequestBody PancakeEntity newPancake) {
+        service.createPancake((newPancake));
+    }
+    @DeleteMapping("/{id}")
+    public void deletePancake(@PathVariable(value = "id") int pancakeId) {
+       service.deletePancake(pancakeId);
     }
 }
