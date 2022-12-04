@@ -54,6 +54,8 @@ public class IngredientEntity {
     }
 
     public Integer getPancakeId() {
+        if (pancakeByPancakeId == null) { return null; }
+
         return pancakeByPancakeId.getId();
     }
 
