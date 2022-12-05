@@ -3,13 +3,12 @@ package com.example.pancakes_unlimited.pancake;
 import com.example.pancakes_unlimited.ingredient.IngredientRepository;
 import entities.IngredientEntity;
 import entities.PancakeEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Service
 public class PancakeService implements IPancakeService {
     private final PancakeRepository pancakeRepository;
@@ -33,12 +32,27 @@ public class PancakeService implements IPancakeService {
         pancakeRepository.delete(pancakeToDelete.get());
     }
     @Override
-    public void updatePancake(int pancakeId, List<Integer> ingredientIds) {
-        PancakeEntity pancakeToUpdate = pancakeRepository.findById(pancakeId)
+    public void updatePancake(int pancakeId, PancakeUpdatePayload payload) {
+        pancakeRepository.findById(pancakeId)
                 .orElseThrow(() -> new IllegalStateException(
                         "pancake with id " + pancakeId + "is not in our database."
                 ));
-          return;
-//        TODO: handle commit
+
+        if (payload.getAddedIngredients() != null && payload.getAddedIngredients().size() != 0) {
+            for (int ingredientId: payload.getAddedIngredients()) {
+                Optional<IngredientEntity> optionalIngredient = ingredientRepository.findById(ingredientId);
+                if (optionalIngredient.isPresent()) {
+                    pancakeRepository.addPancakeIngredient(pancakeId, ingredientId);
+                }
+            }
+        }
+        if (payload.getRemovedIngredients() != null && payload.getRemovedIngredients().size() != 0) {
+            for (int ingredientId: payload.getRemovedIngredients()) {
+                Optional<IngredientEntity> optionalIngredient = ingredientRepository.findById(ingredientId);
+                if (optionalIngredient.isPresent()) {
+                    pancakeRepository.deletePancakeIngredient(pancakeId, ingredientId);
+                }
+            }
+        }
     }
 }

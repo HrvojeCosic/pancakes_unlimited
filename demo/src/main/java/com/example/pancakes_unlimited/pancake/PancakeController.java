@@ -27,6 +27,6 @@ public class PancakeController {
             @PathVariable(value = "id") int pancakeId,
             @RequestBody PancakeUpdatePayload pancakeUpdatePayload
     ) {
-        service.updatePancake(pancakeId, pancakeUpdatePayload.getIngredients());
+        service.updatePancake(pancakeId, pancakeUpdatePayload);
     }
 }

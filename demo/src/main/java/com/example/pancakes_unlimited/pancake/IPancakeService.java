@@ -8,5 +8,5 @@ import java.util.List;
 public interface IPancakeService {
     public abstract void createPancake(PancakeEntity newPancake);
     public abstract void deletePancake(int pancakeId);
-    public abstract void updatePancake(int pancakeId, List<Integer> ingredients);
+    public abstract void updatePancake(int pancakeId, PancakeUpdatePayload payload);
 }
