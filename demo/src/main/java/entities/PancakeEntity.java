@@ -1,8 +1,6 @@
 package entities;
 
 import jakarta.persistence.*;
-
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -13,9 +11,6 @@ public class PancakeEntity {
     @Id
     @Column(name = "id", nullable = false)
     private int id;
-    @OneToMany(mappedBy = "pancakeByPancakeId")
-    private Collection<IngredientEntity> ingredientsById;
-
     public int getId() {
         return id;
     }
@@ -33,11 +28,4 @@ public class PancakeEntity {
         return Objects.hash(id);
     }
 
-    public Collection<IngredientEntity> getIngredientsById() {
-        return ingredientsById;
-    }
-
-    public void setIngredientsById(Collection<IngredientEntity> ingredientsById) {
-        this.ingredientsById = ingredientsById;
-    }
 }

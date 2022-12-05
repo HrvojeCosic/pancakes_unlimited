@@ -21,9 +21,6 @@ public class IngredientEntity {
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private CategoryEntity categoryByCategoryId;
-    @ManyToOne
-    @JoinColumn(name = "pancake_id", referencedColumnName = "id")
-    private PancakeEntity pancakeByPancakeId;
 
     public int getId() {
         return id;
@@ -53,22 +50,17 @@ public class IngredientEntity {
         return categoryByCategoryId.getId();
     }
 
-    public Integer getPancakeId() {
-        if (pancakeByPancakeId == null) { return null; }
-
-        return pancakeByPancakeId.getId();
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         IngredientEntity that = (IngredientEntity) o;
-        return id == that.id && getCategoryId() == that.getCategoryId() && Objects.equals(name, that.name) && Objects.equals(price, that.price) && Objects.equals(getPancakeId(), that.getPancakeId());
+        return id == that.id && getCategoryId() == that.getCategoryId() && Objects.equals(name, that.name) && Objects.equals(price, that.price);
     }
 
     @Override
-    public int hashCode() { return Objects.hash(id, name, price, getCategoryId(), getPancakeId()); }
+    public int hashCode() { return Objects.hash(id, name, price, getCategoryId()); }
 
     public CategoryEntity getCategoryByCategoryId() {
         return categoryByCategoryId;
@@ -76,13 +68,5 @@ public class IngredientEntity {
 
     public void setCategoryByCategoryId(CategoryEntity categoryByCategoryId) {
         this.categoryByCategoryId = categoryByCategoryId;
-    }
-
-    public PancakeEntity getPancakeByPancakeId() {
-        return pancakeByPancakeId;
-    }
-
-    public void setPancakeByPancakeId(PancakeEntity pancakeByPancakeId) {
-        this.pancakeByPancakeId = pancakeByPancakeId;
     }
 }
