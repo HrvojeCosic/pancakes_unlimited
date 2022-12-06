@@ -23,7 +23,7 @@ public class IngredientService implements IIngredientService {
     }
 
     @Override
-    public IngredientEntity updateIngredient(int ingredientId, IngredientEntity payload) {
-        return null;
+    public IngredientDTO updateIngredient(int ingredientId, IngredientDTO payload) {
+        return ingredientRepository.updateIngredient(ingredientId, payload);
     }
 }

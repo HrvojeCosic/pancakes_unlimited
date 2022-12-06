@@ -28,7 +28,7 @@ public class CustomizedIngredientRepositoryImpl implements CustomizedIngredientR
         int categoryId = newIngredient.getCategory_id();
         Optional<CategoryEntity> chosenCategory = categoryRepository.findById(categoryId);
         if (!chosenCategory.isPresent()) {
-            throw new ResourceNotFoundException("Odabrana kategorija sastojka ne postoji.");
+            throw new ResourceNotFoundException("Chosen ingredient category does not exist.");
         }
 
         IngredientEntity ingredientEntity = new IngredientEntity();
@@ -36,5 +36,29 @@ public class CustomizedIngredientRepositoryImpl implements CustomizedIngredientR
         ingredientEntity.setPrice(price);
         ingredientEntity.setCategoryByCategoryId(chosenCategory.get());
         return newIngredient;
+    }
+
+    @Override
+    public IngredientDTO updateIngredient(int ingredientId, IngredientDTO payload) {
+        final String name = payload.getName();
+        final BigDecimal price = payload.getPrice();
+        final int categoryId = payload.getCategory_id();
+
+        Optional<IngredientEntity> chosenIngredient = ingredientRepository.findById(ingredientId);
+        if (!chosenIngredient.isPresent()) {
+            throw new ResourceNotFoundException("Ingredient does not exist.");
+        }
+
+        IngredientEntity ingredientToUpdate = chosenIngredient.get();
+        if (name != null) { ingredientToUpdate.setName(name); }
+        if (price != null) { ingredientToUpdate.setPrice(price); }
+        if (categoryId != 0) {
+            Optional<CategoryEntity> chosenCategory = categoryRepository.findById(categoryId);
+            if (!chosenCategory.isPresent()) {
+                throw new ResourceNotFoundException("Chosen ingredient category does not exist.");
+            }
+            ingredientToUpdate.setCategoryByCategoryId(chosenCategory.get());
+        }
+        return new IngredientDTO(name, price, categoryId);
     }
 }

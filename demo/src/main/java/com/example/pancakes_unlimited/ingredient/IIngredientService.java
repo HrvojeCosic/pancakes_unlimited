@@ -5,5 +5,5 @@ import entities.IngredientEntity;
 public interface IIngredientService {
     public abstract IngredientDTO createIngredient(IngredientDTO newIngredient);
     public abstract void deleteIngredient(int ingredientId);
-    public abstract IngredientEntity updateIngredient(int ingredientId, IngredientEntity payload);
+    public abstract IngredientDTO updateIngredient(int ingredientId, IngredientDTO payload);
 }
