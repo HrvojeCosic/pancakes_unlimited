@@ -22,10 +22,7 @@ public class CustomizedIngredientRepositoryImpl implements CustomizedIngredientR
     }
 
     @Override
-    public IngredientDTO createIngredient(IngredientDTO newIngredient) {
-        String name = newIngredient.getName();
-        BigDecimal price = newIngredient.getPrice();
-        int categoryId = newIngredient.getCategory_id();
+    public IngredientDTO createIngredient(String name, BigDecimal price, int categoryId) {
         Optional<CategoryEntity> chosenCategory = categoryRepository.findById(categoryId);
         if (!chosenCategory.isPresent()) {
             throw new ResourceNotFoundException("Chosen ingredient category does not exist.");
@@ -35,15 +32,11 @@ public class CustomizedIngredientRepositoryImpl implements CustomizedIngredientR
         ingredientEntity.setName(name);
         ingredientEntity.setPrice(price);
         ingredientEntity.setCategoryByCategoryId(chosenCategory.get());
-        return newIngredient;
+        return new IngredientDTO(name, price, categoryId);
     }
 
     @Override
-    public IngredientDTO updateIngredient(int ingredientId, IngredientDTO payload) {
-        final String name = payload.getName();
-        final BigDecimal price = payload.getPrice();
-        final int categoryId = payload.getCategory_id();
-
+    public IngredientDTO updateIngredient(int ingredientId, String name, BigDecimal price, int categoryId) {
         Optional<IngredientEntity> chosenIngredient = ingredientRepository.findById(ingredientId);
         if (!chosenIngredient.isPresent()) {
             throw new ResourceNotFoundException("Ingredient does not exist.");

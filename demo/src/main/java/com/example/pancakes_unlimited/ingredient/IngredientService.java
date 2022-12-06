@@ -4,6 +4,8 @@ import entities.IngredientEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 @Transactional
 @Service
 public class IngredientService implements IIngredientService {
@@ -14,7 +16,11 @@ public class IngredientService implements IIngredientService {
 
     @Override
     public IngredientDTO createIngredient(IngredientDTO newIngredient) {
-        return ingredientRepository.createIngredient(newIngredient);
+        String name = newIngredient.getName();
+        BigDecimal price = newIngredient.getPrice();
+        int categoryId = newIngredient.getCategory_id();
+
+        return ingredientRepository.createIngredient(name, price, categoryId);
     }
 
     @Override
@@ -24,6 +30,10 @@ public class IngredientService implements IIngredientService {
 
     @Override
     public IngredientDTO updateIngredient(int ingredientId, IngredientDTO payload) {
-        return ingredientRepository.updateIngredient(ingredientId, payload);
+        String name = payload.getName();
+        BigDecimal price = payload.getPrice();
+        int categoryId = payload.getCategory_id();
+
+        return ingredientRepository.updateIngredient(ingredientId, name, price, categoryId);
     }
 }
