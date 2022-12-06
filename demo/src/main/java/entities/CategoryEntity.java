@@ -47,11 +47,4 @@ public class CategoryEntity {
         return Objects.hash(id, name);
     }
 
-    public Collection<IngredientEntity> getIngredientsById() {
-        return ingredientsById;
-    }
-
-    public void setIngredientsById(Collection<IngredientEntity> ingredientsById) {
-        this.ingredientsById = ingredientsById;
-    }
 }

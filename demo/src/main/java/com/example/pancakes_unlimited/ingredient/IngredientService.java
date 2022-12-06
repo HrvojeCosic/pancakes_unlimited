@@ -13,8 +13,8 @@ public class IngredientService implements IIngredientService {
     }
 
     @Override
-    public IngredientEntity createIngredient(IngredientEntity newIngredient) {
-        return ingredientRepository.save(newIngredient);
+    public IngredientDTO createIngredient(IngredientDTO newIngredient) {
+        return ingredientRepository.createIngredient(newIngredient);
     }
 
     @Override

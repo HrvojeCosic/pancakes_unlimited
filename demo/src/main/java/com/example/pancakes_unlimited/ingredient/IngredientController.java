@@ -1,6 +1,5 @@
 package com.example.pancakes_unlimited.ingredient;
 
-import entities.IngredientEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +15,8 @@ public class IngredientController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<IngredientEntity> newIngredient(@RequestBody IngredientEntity newIngredient) {
-        IngredientEntity createdIngredient = service.createIngredient((newIngredient));
+    public ResponseEntity<IngredientDTO> newIngredient(@RequestBody IngredientDTO newIngredient) {
+        IngredientDTO createdIngredient = service.createIngredient((newIngredient));
         return ResponseEntity.ok(createdIngredient);
     }
 }
