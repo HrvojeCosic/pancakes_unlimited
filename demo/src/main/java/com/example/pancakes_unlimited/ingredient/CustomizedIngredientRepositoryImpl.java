@@ -28,10 +28,12 @@ public class CustomizedIngredientRepositoryImpl implements CustomizedIngredientR
             throw new ResourceNotFoundException("Chosen ingredient category does not exist.");
         }
 
-        IngredientEntity ingredientEntity = new IngredientEntity();
-        ingredientEntity.setName(name);
-        ingredientEntity.setPrice(price);
-        ingredientEntity.setCategoryByCategoryId(chosenCategory.get());
+       IngredientEntity ingredientEntity = new IngredientEntity();
+       ingredientEntity.setName(name)
+                       .setPrice(price)
+                       .setCategoryByCategoryId(chosenCategory.get());
+
+       ingredientRepository.save(ingredientEntity);
         return new IngredientDTO(name, price, categoryId);
     }
 

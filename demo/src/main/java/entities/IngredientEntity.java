@@ -26,24 +26,22 @@ public class IngredientEntity {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public IngredientEntity setName(String name) {
         this.name = name;
+        return this;
     }
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public IngredientEntity setPrice(BigDecimal price) {
         this.price = price;
+        return this;
     }
 
     public int getCategoryId() {
@@ -66,7 +64,8 @@ public class IngredientEntity {
         return categoryByCategoryId;
     }
 
-    public void setCategoryByCategoryId(CategoryEntity categoryByCategoryId) {
+    public IngredientEntity setCategoryByCategoryId(CategoryEntity categoryByCategoryId) {
         this.categoryByCategoryId = categoryByCategoryId;
+        return this;
     }
 }
