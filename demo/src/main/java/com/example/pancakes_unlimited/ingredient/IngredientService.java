@@ -5,6 +5,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Service
@@ -12,6 +14,19 @@ public class IngredientService implements IIngredientService {
     private final IngredientRepository ingredientRepository;
     public IngredientService(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
+    }
+
+    @Override
+    public List<IngredientDTO> getAllIngredients() {
+        List<IngredientDTO> ingredients = new ArrayList<IngredientDTO>();
+        for(IngredientEntity ingredientEntity: ingredientRepository.findAll()) {
+            ingredients.add(new IngredientDTO(
+                    ingredientEntity.getName(),
+                    ingredientEntity.getPrice(),
+                    ingredientEntity.getCategoryId())
+            );
+        }
+        return ingredients;
     }
 
     @Override
