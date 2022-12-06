@@ -4,7 +4,6 @@ import com.example.pancakes_unlimited.exception.ResourceNotFoundException;
 import com.example.pancakes_unlimited.ingredient.IngredientRepository;
 import entities.IngredientEntity;
 import entities.PancakeEntity;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +21,14 @@ public class PancakeService implements IPancakeService {
     }
 
     @Override
-    public void createPancake(PancakeEntity newPancake) {
-        pancakeRepository.save(newPancake);
+    public PancakeEntity createPancake(PancakeEntity newPancake) {
+        return pancakeRepository.save(newPancake);
     }
     @Override
     public void deletePancake(int pancakeId) {
         Optional<PancakeEntity> pancakeToDelete = pancakeRepository.findById(pancakeId);
         if (pancakeToDelete.isEmpty()) {
-            return;
+            throw new ResourceNotFoundException("pancake with id " + pancakeId + " does not exist.");
         }
         pancakeRepository.delete(pancakeToDelete.get());
     }
@@ -37,7 +36,7 @@ public class PancakeService implements IPancakeService {
     public PancakeEntity updatePancake(int pancakeId, PancakeUpdatePayload payload) {
         PancakeEntity pancakeToUpdate = pancakeRepository.findById(pancakeId)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "pancake with id " + pancakeId + " is not in our database."
+                        "pancake with id " + pancakeId + " does not exist."
                 ));
 
         if (payload.getAddedIngredients() != null && payload.getAddedIngredients().size() != 0) {

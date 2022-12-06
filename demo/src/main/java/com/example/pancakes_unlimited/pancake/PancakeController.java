@@ -1,6 +1,5 @@
 package com.example.pancakes_unlimited.pancake;
 
-import com.example.pancakes_unlimited.exception.ResourceNotFoundException;
 import entities.PancakeEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +14,14 @@ public class PancakeController {
     }
 
     @PostMapping("/create")
-    public void newPancake(@RequestBody PancakeEntity newPancake) {
-        service.createPancake((newPancake));
+    public ResponseEntity<PancakeEntity> newPancake(@RequestBody PancakeEntity newPancake) {
+        PancakeEntity createdPancake = service.createPancake((newPancake));
+        return ResponseEntity.ok(createdPancake);
     }
     @DeleteMapping("/{id}")
-    public void deletePancake(@PathVariable(value = "id") int pancakeId) {
+    public ResponseEntity<String> deletePancake(@PathVariable(value = "id") int pancakeId) {
        service.deletePancake(pancakeId);
+       return ResponseEntity.ok("Pancake with id " + pancakeId + " successfully deleted");
     }
     @PostMapping("/update/{id}")
     public ResponseEntity<PancakeEntity> updatePancake(@PathVariable(value = "id") int pancakeId,
