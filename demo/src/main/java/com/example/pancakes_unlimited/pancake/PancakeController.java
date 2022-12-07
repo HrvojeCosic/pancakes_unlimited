@@ -18,7 +18,7 @@ public class PancakeController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Map<Integer, List<IngredientDTO>>> getAll() {
+    public ResponseEntity< Map<Integer, List<IngredientDTO>> > getAll() {
         Map<Integer, List<IngredientDTO>> allPancakes = service.getAllPancakes();
         return ResponseEntity.ok(allPancakes);
     }

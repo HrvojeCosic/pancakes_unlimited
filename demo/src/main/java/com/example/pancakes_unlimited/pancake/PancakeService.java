@@ -15,8 +15,8 @@ import java.util.*;
 public class PancakeService implements IPancakeService {
     private final PancakeRepository pancakeRepository;
     private final IngredientRepository ingredientRepository;
-    public PancakeService(
-            PancakeRepository pancakeRepository, IngredientRepository ingredientRepository) {
+    public PancakeService(PancakeRepository pancakeRepository,
+                          IngredientRepository ingredientRepository) {
         this.pancakeRepository = pancakeRepository;
         this.ingredientRepository = ingredientRepository;
     }
@@ -68,9 +68,11 @@ public class PancakeService implements IPancakeService {
         Map<Integer, List<IngredientDTO>> pancakeByIngredients = new HashMap<>();
         for(PancakeWithIngredient pancake: pancakesWithIngredients) {
             int pancake_id = pancake.getPancake_id();
-            IngredientDTO pancakeIngredient = new IngredientDTO(pancake.getIngredient_name(),
-                              pancake.getIngredient_price(),
-                              pancake.getIngredient_category_name());
+            IngredientDTO pancakeIngredient = new IngredientDTO(
+                    pancake.getIngredient_name(),
+                    pancake.getIngredient_price(),
+                    pancake.getIngredient_category_name()
+            );
 
             if (!pancakeByIngredients.containsKey(pancake_id)) {
                 List<IngredientDTO> ingredients = new ArrayList<>();
