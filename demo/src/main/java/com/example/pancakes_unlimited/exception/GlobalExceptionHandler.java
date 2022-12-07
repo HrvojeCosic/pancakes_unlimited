@@ -21,4 +21,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ZonedDateTime.now(ZoneId.of("CET")));
         return new ResponseEntity<>(errorDetails, notFound);
     }
+
+    @ExceptionHandler(InvalidInputException.class)
+    public ResponseEntity<Object> invalidInputException(InvalidInputException e) {
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        ExceptionDetails errorDetails = new ExceptionDetails(
+                e.getMessage(),
+                badRequest,
+                ZonedDateTime.now(ZoneId.of("CET")));
+        return new ResponseEntity<>(errorDetails, badRequest);
+    }
 }

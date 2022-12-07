@@ -2,6 +2,7 @@ package entities;
 
 import jakarta.persistence.*;
 
+import java.time.OffsetDateTime;
 import java.util.Objects;
 
 @Entity
@@ -16,30 +17,28 @@ public class PancakeOrderEntity {
     private String description;
     @Basic
     @Column(name = "timestamp", nullable = false)
-    private Object timestamp;
+    private OffsetDateTime timestamp;
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public PancakeOrderEntity setDescription(String description) {
         this.description = description;
+        return this;
     }
 
-    public Object getTimestamp() {
+    public OffsetDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Object timestamp) {
+    public PancakeOrderEntity setTimestamp(OffsetDateTime timestamp) {
         this.timestamp = timestamp;
+        return this;
     }
 
     @Override

@@ -11,8 +11,17 @@ public class PancakeEntity {
     @Id
     @Column(name = "id", nullable = false)
     private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = true)
+    private PancakeOrderEntity pancakeOrder;
     public int getId() {
         return id;
+    }
+
+    public PancakeEntity setOrder(PancakeOrderEntity order) {
+        this.pancakeOrder = order;
+        return this;
     }
 
     @Override
