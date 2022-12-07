@@ -18,12 +18,12 @@ public class IngredientService implements IIngredientService {
 
     @Override
     public List<IngredientDTO> getAllIngredients() {
-        List<IngredientDTO> ingredients = new ArrayList<IngredientDTO>();
+        List<IngredientDTO> ingredients = new ArrayList<>();
         for(IngredientEntity ingredientEntity: ingredientRepository.findAll()) {
-            ingredients.add(new IngredientDTO(
-                    ingredientEntity.getName(),
-                    ingredientEntity.getPrice(),
-                    ingredientEntity.getCategoryId())
+            ingredients.add(new IngredientDTO()
+                            .setName(ingredientEntity.getName())
+                            .setPrice(ingredientEntity.getPrice())
+                            .setCategory_id(ingredientEntity.getCategoryId())
             );
         }
         return ingredients;

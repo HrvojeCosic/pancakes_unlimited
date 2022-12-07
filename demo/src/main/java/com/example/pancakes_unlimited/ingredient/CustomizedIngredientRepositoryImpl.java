@@ -34,7 +34,7 @@ public class CustomizedIngredientRepositoryImpl implements CustomizedIngredientR
                        .setCategoryByCategoryId(chosenCategory.get());
 
        ingredientRepository.save(ingredientEntity);
-        return new IngredientDTO(name, price, categoryId);
+        return new IngredientDTO().setName(name).setPrice(price).setCategory_id(categoryId);
     }
 
     @Override
@@ -54,6 +54,6 @@ public class CustomizedIngredientRepositoryImpl implements CustomizedIngredientR
             }
             ingredientToUpdate.setCategoryByCategoryId(chosenCategory.get());
         }
-        return new IngredientDTO(name, price, categoryId);
+        return new IngredientDTO().setName(name).setPrice(price).setCategory_id(categoryId);
     }
 }

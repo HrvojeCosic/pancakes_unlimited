@@ -68,11 +68,11 @@ public class PancakeService implements IPancakeService {
         Map<Integer, List<IngredientDTO>> pancakeByIngredients = new HashMap<>();
         for(PancakeWithIngredient pancake: pancakesWithIngredients) {
             int pancake_id = pancake.getPancake_id();
-            IngredientDTO pancakeIngredient = new IngredientDTO(
-                    pancake.getIngredient_name(),
-                    pancake.getIngredient_price(),
-                    pancake.getIngredient_category_name()
-            );
+            IngredientDTO pancakeIngredient = new IngredientDTO()
+                    .setName(pancake.getIngredient_name())
+                    .setPrice(pancake.getIngredient_price())
+                    .setCategory_id(pancake.getIngredient_id())
+                    .setCategory_name(pancake.getIngredient_category_name());
 
             if (!pancakeByIngredients.containsKey(pancake_id)) {
                 List<IngredientDTO> ingredients = new ArrayList<>();
