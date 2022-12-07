@@ -9,7 +9,8 @@
     <class>entities.IngredientEntity</class>
     <class>entities.PancakeEntity</class>
     <class>entities.PancakeIngredientEntity</class>
-    <properties>
+      <class>entities.PancakeOrderEntity</class>
+      <properties>
       <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/pancakes_unlimited_db"/>
       <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
       <property name="hibernate.connection.username" value="postgres"/>
