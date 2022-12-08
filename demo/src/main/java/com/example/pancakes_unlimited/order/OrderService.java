@@ -1,9 +1,12 @@
 package com.example.pancakes_unlimited.order;
 
 import com.example.pancakes_unlimited.exception.InvalidInputException;
+import com.example.pancakes_unlimited.exception.ResourceNotFoundException;
 import com.example.pancakes_unlimited.ingredient.IngredientDTO;
 import com.example.pancakes_unlimited.pancake.IPancakeService;
 import com.example.pancakes_unlimited.pancake.PancakeRepository;
+import com.example.pancakes_unlimited.pancake.PancakeUtils;
+import com.example.pancakes_unlimited.pancake.PancakeWithIngredient;
 import entities.PancakeOrderEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Transactional(rollbackOn = InvalidInputException.class)
 @Service
@@ -49,13 +53,26 @@ public class OrderService implements IOrderService {
             pancakeRepository.findById(pancakeId).get().setOrder(createdOrder);
         }
 
-        return new OrderDTO(createdOrder.getDescription(),
-                            createdOrder.getTimestamp(),
-                            newOrder.getPancakeIds());
+        return new OrderDTO()
+                .setDescription(createdOrder.getDescription())
+                .setTimestamp(createdOrder.getTimestamp())
+                .setPancakeIds(newOrder.getPancakeIds());
     }
 
     @Override
-    public void deleteOrder(int orderId) {
-        //TODO
+    public OrderDTO getOrder(int orderId) {
+        PancakeOrderEntity orderMainInfo = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException("Order with id " + orderId + " does not exist."));
+        List<PancakeWithIngredient> orderPancakes = orderRepository.getOrderPancakes(orderId);
+
+        Map<Integer, List<IngredientDTO>> pancakeByIngredient = PancakeUtils.aggregatePancakesById(orderPancakes);
+        Map< Integer, Map<Integer, List<IngredientDTO>> > keyedOrderPancakes = new HashMap<>();
+        keyedOrderPancakes.put(orderId, pancakeByIngredient);
+
+        return new OrderDTO()
+                .setDescription(orderMainInfo.getDescription())
+                .setTimestamp(orderMainInfo.getTimestamp())
+                .setPancakesByOrder(keyedOrderPancakes)
+                .setPancakeIds(pancakeByIngredient.keySet().stream().toList());
     }
 }
