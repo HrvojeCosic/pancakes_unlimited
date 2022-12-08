@@ -18,6 +18,9 @@ public class IngredientEntity {
     @Basic
     @Column(name = "price", nullable = false, precision = 2)
     private BigDecimal price;
+    @Basic
+    @Column(name = "is_healthy", nullable = false)
+    private boolean isHealthy;
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private CategoryEntity categoryByCategoryId;
@@ -48,6 +51,14 @@ public class IngredientEntity {
         return categoryByCategoryId.getId();
     }
 
+    public boolean getIsHealthy() {
+        return isHealthy;
+    }
+
+    public IngredientEntity setIsHealthy(boolean isHealthy) {
+        this.isHealthy = isHealthy;
+        return this;
+    }
 
     @Override
     public boolean equals(Object o) {

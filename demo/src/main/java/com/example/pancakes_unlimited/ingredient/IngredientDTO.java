@@ -7,6 +7,7 @@ public class IngredientDTO {
     private BigDecimal price;
     private int category_id;
     private String category_name;
+    private boolean isHealthy;
 
     public String getName() {
         return name;
@@ -22,6 +23,10 @@ public class IngredientDTO {
 
     public String getCategory_name() {
         return category_name;
+    }
+
+    public boolean getIsHealthy() {
+        return isHealthy;
     }
 
     public IngredientDTO setName(String name) {
@@ -41,6 +46,11 @@ public class IngredientDTO {
 
     public IngredientDTO setCategory_name(String category_name) {
         this.category_name = category_name;
+        return this;
+    }
+
+    public IngredientDTO setIsHealthy(boolean isHealthy) {
+        this.isHealthy = isHealthy;
         return this;
     }
 }
