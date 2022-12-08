@@ -1,6 +1,7 @@
 package com.example.pancakes_unlimited.pancake;
 
 import com.example.pancakes_unlimited.ingredient.IngredientDTO;
+import com.example.pancakes_unlimited.pancake.type.PancakeWithIngredient;
 
 import java.util.*;
 

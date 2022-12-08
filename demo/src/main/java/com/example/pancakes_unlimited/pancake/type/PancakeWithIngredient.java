@@ -1,4 +1,4 @@
-package com.example.pancakes_unlimited.pancake;
+package com.example.pancakes_unlimited.pancake.type;
 
 import java.math.BigDecimal;
 

@@ -1,12 +1,15 @@
-package com.example.pancakes_unlimited.order;
+package com.example.pancakes_unlimited.order.service;
 
 import com.example.pancakes_unlimited.exception.InvalidInputException;
 import com.example.pancakes_unlimited.exception.ResourceNotFoundException;
 import com.example.pancakes_unlimited.ingredient.IngredientDTO;
-import com.example.pancakes_unlimited.pancake.IPancakeService;
+import com.example.pancakes_unlimited.order.OrderDTO;
+import com.example.pancakes_unlimited.order.OrderRepository;
+import com.example.pancakes_unlimited.order.OrderUtils;
+import com.example.pancakes_unlimited.pancake.service.IPancakeService;
 import com.example.pancakes_unlimited.pancake.PancakeRepository;
 import com.example.pancakes_unlimited.pancake.PancakeUtils;
-import com.example.pancakes_unlimited.pancake.PancakeWithIngredient;
+import com.example.pancakes_unlimited.pancake.type.PancakeWithIngredient;
 import entities.PancakeOrderEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -15,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Transactional(rollbackOn = InvalidInputException.class)
 @Service
@@ -65,14 +67,15 @@ public class OrderService implements IOrderService {
                 .orElseThrow(() -> new ResourceNotFoundException("Order with id " + orderId + " does not exist."));
         List<PancakeWithIngredient> orderPancakes = orderRepository.getOrderPancakes(orderId);
 
-        Map<Integer, List<IngredientDTO>> pancakeByIngredient = PancakeUtils.aggregatePancakesById(orderPancakes);
+        Map<Integer, List<IngredientDTO>> pancakeByIngredients = PancakeUtils.aggregatePancakesById(orderPancakes);
+
         Map< Integer, Map<Integer, List<IngredientDTO>> > keyedOrderPancakes = new HashMap<>();
-        keyedOrderPancakes.put(orderId, pancakeByIngredient);
+        keyedOrderPancakes.put(orderId, pancakeByIngredients);
 
         return new OrderDTO()
                 .setDescription(orderMainInfo.getDescription())
                 .setTimestamp(orderMainInfo.getTimestamp())
-                .setPancakesByOrder(keyedOrderPancakes)
-                .setPancakeIds(pancakeByIngredient.keySet().stream().toList());
+//                .setPancakesByOrder(keyedOrderPancakes)
+                .setPancakeIds(pancakeByIngredients.keySet().stream().toList());
     }
 }

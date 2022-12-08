@@ -1,5 +1,6 @@
 package com.example.pancakes_unlimited.ingredient;
 
+import com.example.pancakes_unlimited.ingredient.service.IIngredientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

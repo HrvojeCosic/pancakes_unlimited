@@ -1,8 +1,12 @@
-package com.example.pancakes_unlimited.pancake;
+package com.example.pancakes_unlimited.pancake.service;
 
 import com.example.pancakes_unlimited.exception.ResourceNotFoundException;
 import com.example.pancakes_unlimited.ingredient.IngredientDTO;
-import com.example.pancakes_unlimited.ingredient.IngredientRepository;
+import com.example.pancakes_unlimited.ingredient.repository.IngredientRepository;
+import com.example.pancakes_unlimited.pancake.PancakeRepository;
+import com.example.pancakes_unlimited.pancake.type.PancakeUpdateDTO;
+import com.example.pancakes_unlimited.pancake.PancakeUtils;
+import com.example.pancakes_unlimited.pancake.type.PancakeWithIngredient;
 import entities.IngredientEntity;
 import entities.PancakeEntity;
 import jakarta.transaction.Transactional;
@@ -36,7 +40,7 @@ public class PancakeService implements IPancakeService {
     }
 
     @Override
-    public PancakeEntity updatePancake(int pancakeId, PancakeUpdatePayload payload) {
+    public PancakeEntity updatePancake(int pancakeId, PancakeUpdateDTO payload) {
         PancakeEntity pancakeToUpdate = pancakeRepository.findById(pancakeId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Pancake with id " + pancakeId + " does not exist."

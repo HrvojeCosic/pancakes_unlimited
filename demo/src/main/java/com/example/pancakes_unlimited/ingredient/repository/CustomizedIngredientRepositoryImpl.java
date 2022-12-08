@@ -1,7 +1,8 @@
-package com.example.pancakes_unlimited.ingredient;
+package com.example.pancakes_unlimited.ingredient.repository;
 
 import com.example.pancakes_unlimited.category.CategoryRepository;
 import com.example.pancakes_unlimited.exception.ResourceNotFoundException;
+import com.example.pancakes_unlimited.ingredient.IngredientDTO;
 import entities.CategoryEntity;
 import entities.IngredientEntity;
 import org.springframework.beans.factory.annotation.Autowired;

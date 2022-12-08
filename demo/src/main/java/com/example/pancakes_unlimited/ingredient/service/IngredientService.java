@@ -1,5 +1,8 @@
-package com.example.pancakes_unlimited.ingredient;
+package com.example.pancakes_unlimited.ingredient.service;
 
+import com.example.pancakes_unlimited.ingredient.IngredientDTO;
+import com.example.pancakes_unlimited.ingredient.repository.IngredientRepository;
+import com.example.pancakes_unlimited.ingredient.service.IIngredientService;
 import entities.IngredientEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;

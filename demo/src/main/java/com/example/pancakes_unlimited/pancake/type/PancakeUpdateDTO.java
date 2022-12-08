@@ -1,8 +1,8 @@
-package com.example.pancakes_unlimited.pancake;
+package com.example.pancakes_unlimited.pancake.type;
 
 import java.util.List;
 
-public class PancakeUpdatePayload {
+public class PancakeUpdateDTO {
     private List<Integer> addedIngredients;
     private List<Integer> removedIngredients;
 

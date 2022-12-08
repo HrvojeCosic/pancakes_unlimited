@@ -1,4 +1,6 @@
-package com.example.pancakes_unlimited.ingredient;
+package com.example.pancakes_unlimited.ingredient.repository;
+
+import com.example.pancakes_unlimited.ingredient.IngredientDTO;
 
 import java.math.BigDecimal;
 

@@ -1,5 +1,6 @@
-package com.example.pancakes_unlimited.ingredient;
+package com.example.pancakes_unlimited.ingredient.service;
 
+import com.example.pancakes_unlimited.ingredient.IngredientDTO;
 import entities.IngredientEntity;
 
 import java.util.List;

@@ -1,6 +1,8 @@
 package com.example.pancakes_unlimited.pancake;
 
 import com.example.pancakes_unlimited.ingredient.IngredientDTO;
+import com.example.pancakes_unlimited.pancake.service.IPancakeService;
+import com.example.pancakes_unlimited.pancake.type.PancakeUpdateDTO;
 import entities.PancakeEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,8 +37,8 @@ public class PancakeController {
     }
     @PostMapping("/update/{id}")
     public ResponseEntity<PancakeEntity> updatePancake(@PathVariable(value = "id") int pancakeId,
-                                                       @RequestBody PancakeUpdatePayload pancakeUpdatePayload) {
-            PancakeEntity updatedPancake = service.updatePancake(pancakeId, pancakeUpdatePayload);
+                                                       @RequestBody PancakeUpdateDTO pancakeUpdateDTO) {
+            PancakeEntity updatedPancake = service.updatePancake(pancakeId, pancakeUpdateDTO);
             return ResponseEntity.ok(updatedPancake);
     }
 }
