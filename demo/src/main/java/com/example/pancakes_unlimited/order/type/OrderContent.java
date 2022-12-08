@@ -1,30 +1,30 @@
 package com.example.pancakes_unlimited.order.type;
 
 import java.math.BigDecimal;
-import java.util.Map;
+import java.util.List;
 
 public class OrderContent {
     private BigDecimal totalPrice;
-    private Map<Integer, OrderPancake> pancakesById;
+    private List<OrderPancake> orderPancakes;
 
-    public OrderContent(Map<Integer, OrderPancake> pancakesById, BigDecimal totalPrice) {
+    public OrderContent(List<OrderPancake> orderPancakes, BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
-        this.pancakesById = pancakesById;
+        this.orderPancakes = orderPancakes;
     }
 
     public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public Map<Integer, OrderPancake> getPancakesById() {
-        return pancakesById;
+    public List<OrderPancake> getOrderPancakes() {
+        return orderPancakes;
     }
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public void setPancakesById(Map<Integer, OrderPancake> pancakesById) {
-        this.pancakesById = pancakesById;
+    public void setOrderPancakes(List<OrderPancake> orderPancakes) {
+        this.orderPancakes = orderPancakes;
     }
 }

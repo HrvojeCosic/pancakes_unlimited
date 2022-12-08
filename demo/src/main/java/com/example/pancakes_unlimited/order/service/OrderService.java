@@ -74,19 +74,18 @@ public class OrderService implements IOrderService {
         Map<Integer, List<IngredientDTO>> pancakeByIngredients = PancakeUtils.aggregatePancakesById(orderPancakes);
 
         BigDecimal totalPrice = BigDecimal.valueOf(0);
-        Map<Integer, OrderPancake> orderedPancakes = new HashMap<>();
+        List<OrderPancake> orderedPancakes = new ArrayList<>();
 
         List<List<IngredientDTO>> allOrderIngredients = pancakeByIngredients.values().stream().toList();
-        for(List<IngredientDTO> pancakeIngredientList: allOrderIngredients) {
-            int pancakeCount = 0;
+        for(List<IngredientDTO> pancakeIngredients: allOrderIngredients) {
             BigDecimal pancakePrice = BigDecimal.valueOf(0);
 
-            for(IngredientDTO ingredient: pancakeIngredientList) {
+            for(IngredientDTO ingredient: pancakeIngredients) {
                 totalPrice = totalPrice.add(ingredient.getPrice());
                 pancakePrice = pancakePrice.add(ingredient.getPrice());
             }
 
-            orderedPancakes.put(++pancakeCount, new OrderPancake(pancakeIngredientList, pancakePrice));
+            orderedPancakes.add(new OrderPancake(pancakeIngredients, pancakePrice));
         }
 
         Map<Integer, OrderContent> formattedOrderContent = new HashMap<>();
