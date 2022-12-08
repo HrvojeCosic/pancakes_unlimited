@@ -1,6 +1,7 @@
 package com.example.pancakes_unlimited.order;
 
 import com.example.pancakes_unlimited.order.service.IOrderService;
+import com.example.pancakes_unlimited.order.type.OrderDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

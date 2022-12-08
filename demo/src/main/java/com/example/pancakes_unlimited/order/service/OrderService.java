@@ -3,9 +3,11 @@ package com.example.pancakes_unlimited.order.service;
 import com.example.pancakes_unlimited.exception.InvalidInputException;
 import com.example.pancakes_unlimited.exception.ResourceNotFoundException;
 import com.example.pancakes_unlimited.ingredient.IngredientDTO;
-import com.example.pancakes_unlimited.order.OrderDTO;
+import com.example.pancakes_unlimited.order.type.OrderContent;
+import com.example.pancakes_unlimited.order.type.OrderDTO;
 import com.example.pancakes_unlimited.order.OrderRepository;
 import com.example.pancakes_unlimited.order.OrderUtils;
+import com.example.pancakes_unlimited.order.type.OrderPancake;
 import com.example.pancakes_unlimited.pancake.service.IPancakeService;
 import com.example.pancakes_unlimited.pancake.PancakeRepository;
 import com.example.pancakes_unlimited.pancake.PancakeUtils;
@@ -15,9 +17,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Transactional(rollbackOn = InvalidInputException.class)
 @Service
@@ -69,13 +73,29 @@ public class OrderService implements IOrderService {
 
         Map<Integer, List<IngredientDTO>> pancakeByIngredients = PancakeUtils.aggregatePancakesById(orderPancakes);
 
-        Map< Integer, Map<Integer, List<IngredientDTO>> > keyedOrderPancakes = new HashMap<>();
-        keyedOrderPancakes.put(orderId, pancakeByIngredients);
+        BigDecimal totalPrice = BigDecimal.valueOf(0);
+        Map<Integer, OrderPancake> orderedPancakes = new HashMap<>();
+
+        List<List<IngredientDTO>> allOrderIngredients = pancakeByIngredients.values().stream().toList();
+        for(List<IngredientDTO> pancakeIngredientList: allOrderIngredients) {
+            int pancakeCount = 0;
+            BigDecimal pancakePrice = BigDecimal.valueOf(0);
+
+            for(IngredientDTO ingredient: pancakeIngredientList) {
+                totalPrice = totalPrice.add(ingredient.getPrice());
+                pancakePrice = pancakePrice.add(ingredient.getPrice());
+            }
+
+            orderedPancakes.put(++pancakeCount, new OrderPancake(pancakeIngredientList, pancakePrice));
+        }
+
+        Map<Integer, OrderContent> formattedOrderContent = new HashMap<>();
+        formattedOrderContent.put(orderId, new OrderContent(orderedPancakes, totalPrice));
 
         return new OrderDTO()
                 .setDescription(orderMainInfo.getDescription())
                 .setTimestamp(orderMainInfo.getTimestamp())
-//                .setPancakesByOrder(keyedOrderPancakes)
+                .setOrderContentByOrderIds(formattedOrderContent)
                 .setPancakeIds(pancakeByIngredients.keySet().stream().toList());
     }
 }
