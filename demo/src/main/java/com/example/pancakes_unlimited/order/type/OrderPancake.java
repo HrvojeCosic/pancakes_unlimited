@@ -8,6 +8,7 @@ import java.util.List;
 public class OrderPancake {
     private List<IngredientDTO> ingredients;
     private BigDecimal pancakePrice;
+    private Double pancakeDiscount;
 
     public OrderPancake(List<IngredientDTO> ingredients, BigDecimal pancakePrice) {
         this.ingredients = ingredients;
@@ -22,11 +23,19 @@ public class OrderPancake {
         return pancakePrice;
     }
 
+    public Double getPancakeDiscount() {
+        return pancakeDiscount;
+    }
+
     public void setIngredients(List<IngredientDTO> ingredients) {
         this.ingredients = ingredients;
     }
 
     public void setPancakePrice(BigDecimal pancakePrice) {
         this.pancakePrice = pancakePrice;
+    }
+
+    public void setPancakeDiscount(Double pancakeDiscount) {
+        this.pancakeDiscount = pancakeDiscount;
     }
 }

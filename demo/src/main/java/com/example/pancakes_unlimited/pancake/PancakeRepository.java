@@ -30,7 +30,7 @@ public interface PancakeRepository extends JpaRepository<PancakeEntity, Integer>
     Optional<Integer> deletePancakeIngredient(int pancakeId, int ingredientId);
 
     @Query("SELECT new com.example.pancakes_unlimited.pancake.type.PancakeWithIngredient(" +
-           "PI.pancakeId, PI.ingredientId, ING.price, ING.name, C.name) " +
+           "PI.pancakeId, PI.ingredientId, ING.price, ING.name, C.name, ING.isHealthy) " +
            "FROM PancakeIngredientEntity AS PI " +
            "JOIN IngredientEntity AS ING ON PI.ingredientId = ING.id " +
            "JOIN CategoryEntity AS C ON C.id = ING.categoryByCategoryId.id")

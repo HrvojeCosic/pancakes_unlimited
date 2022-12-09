@@ -5,6 +5,7 @@ import java.util.List;
 
 public class OrderContent {
     private BigDecimal totalPrice;
+    private Double orderDiscount;
     private List<OrderPancake> orderPancakes;
 
     public OrderContent(List<OrderPancake> orderPancakes, BigDecimal totalPrice) {
@@ -14,6 +15,10 @@ public class OrderContent {
 
     public BigDecimal getTotalPrice() {
         return totalPrice;
+    }
+
+    public Double getOrderDiscount() {
+        return orderDiscount;
     }
 
     public List<OrderPancake> getOrderPancakes() {
@@ -26,5 +31,9 @@ public class OrderContent {
 
     public void setOrderPancakes(List<OrderPancake> orderPancakes) {
         this.orderPancakes = orderPancakes;
+    }
+
+    public void setOrderDiscount(Double orderDiscount) {
+        this.orderDiscount = orderDiscount;
     }
 }

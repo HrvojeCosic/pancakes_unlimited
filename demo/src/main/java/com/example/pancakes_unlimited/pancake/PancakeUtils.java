@@ -16,7 +16,8 @@ public class PancakeUtils {
                     .setName(pancake.getIngredient_name())
                     .setPrice(pancake.getIngredient_price())
                     .setCategory_id(pancake.getIngredient_id())
-                    .setCategory_name(pancake.getIngredient_category_name());
+                    .setCategory_name(pancake.getIngredient_category_name())
+                    .setIsHealthy(pancake.getIngredientIsHealthy());
 
             if (!pancakeByIngredients.containsKey(pancake_id)) {
                 List<IngredientDTO> ingredients = new ArrayList<>();
