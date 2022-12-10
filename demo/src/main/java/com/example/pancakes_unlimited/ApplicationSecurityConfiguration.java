@@ -54,7 +54,7 @@ public class ApplicationSecurityConfiguration {
                         authorize
                                 .requestMatchers("/api/v1/ingredient/*").hasAuthority("EMPLOYEE")
                                 .requestMatchers("/api/v1/order/*", "/api/v1/pancake/*").hasAuthority("CUSTOMER")
-                                .requestMatchers("/api/v1/report/*").hasAuthority("STORE OWNER"))
+                                .requestMatchers("/api/v1/report/*").hasAuthority("STORE_OWNER"))
                 .formLogin();
         return http.build();
     }
