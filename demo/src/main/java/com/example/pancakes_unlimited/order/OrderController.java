@@ -33,4 +33,14 @@ public class OrderController {
         OrderDTO fetchedOrder = service.getOrder(orderId);
         return ResponseEntity.ok(fetchedOrder);
     }
+
+    @DeleteMapping("/removePancakeFromOrder/{pancakeId}/{orderId}")
+    public ResponseEntity<String> removePancakeFromOrder(
+            @PathVariable(value = "pancakeId") int pancakeId,
+            @PathVariable(value = "orderId") int orderId
+    ){
+        service.removePancakeFromOrder(pancakeId, orderId);
+        return ResponseEntity.ok("Pancake with id " + pancakeId +
+                " successfully deleted from order with id " + orderId);
+    }
 }

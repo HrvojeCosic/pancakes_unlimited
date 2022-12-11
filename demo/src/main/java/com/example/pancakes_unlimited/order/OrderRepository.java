@@ -3,6 +3,7 @@ package com.example.pancakes_unlimited.order;
 import com.example.pancakes_unlimited.pancake.type.PancakeWithIngredient;
 import entities.PancakeOrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +21,11 @@ public interface OrderRepository extends JpaRepository<PancakeOrderEntity, Integ
            "WHERE P.pancakeOrder.id = :orderId"
     )
     public List<PancakeWithIngredient> getOrderPancakes(int orderId);
+
+    @Modifying
+    @Query(value = "UPDATE pancake " +
+                   "SET order_id = null " +
+                   "WHERE id = :pancakeId AND order_id = :orderId",
+            nativeQuery = true)
+    public void removePancakeFromOrder(int pancakeId, int orderId);
 }

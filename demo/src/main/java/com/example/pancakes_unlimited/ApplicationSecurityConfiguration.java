@@ -64,11 +64,13 @@ public class ApplicationSecurityConfiguration {
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors().and().authorizeHttpRequests(authorize ->
-                        authorize
-                                .requestMatchers("/api/v1/ingredient/*").hasAuthority("EMPLOYEE")
-                                .requestMatchers("/api/v1/order/*", "/api/v1/pancake/*").hasAuthority("CUSTOMER")
-                                .requestMatchers("/api/v1/report/*").hasAuthority("STORE_OWNER"))
+        http.csrf().disable()
+            .cors().and()
+            .authorizeHttpRequests(authorize ->
+                authorize
+                    .requestMatchers("/api/v1/ingredient/*").hasAuthority("EMPLOYEE")
+                    .requestMatchers("/api/v1/order/**", "/api/v1/pancake/*").hasAuthority("CUSTOMER")
+                    .requestMatchers("/api/v1/report/*").hasAuthority("STORE_OWNER"))
                 .httpBasic();
         return http.build();
     }

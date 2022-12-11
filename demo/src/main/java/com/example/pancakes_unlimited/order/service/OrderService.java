@@ -89,4 +89,9 @@ public class OrderService implements IOrderService {
                 .setOrderContentByOrderIds(orderContent)
                 .setPancakeIds(pancakeByIngredients.keySet().stream().toList());
     }
+
+    @Override
+    public void removePancakeFromOrder(int pancakeId, int orderId) {
+        orderRepository.removePancakeFromOrder(pancakeId, orderId);
+    }
 }

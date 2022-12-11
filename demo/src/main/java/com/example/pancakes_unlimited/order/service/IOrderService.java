@@ -8,4 +8,5 @@ public interface IOrderService {
     public abstract OrderDTO createOrder(OrderDTO newOrder);
     public abstract List<OrderDTO> getAllOrders();
     public abstract OrderDTO getOrder(int orderId);
+    public abstract void removePancakeFromOrder(int pancakeId, int orderId);
 }
