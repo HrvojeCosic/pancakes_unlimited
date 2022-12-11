@@ -30,8 +30,8 @@ public class OrderUtils {
         BigDecimal totalPrice = BigDecimal.valueOf(0);
         List<OrderPancake> orderedPancakes = new ArrayList<>();
 
-        List<List<IngredientDTO>> allOrderIngredients = pancakeByIngredients.values().stream().toList();
-        for(List<IngredientDTO> pancakeIngredients: allOrderIngredients) {
+        for (Map.Entry<Integer, List<IngredientDTO>> entry : pancakeByIngredients.entrySet()) {
+            List<IngredientDTO> pancakeIngredients = entry.getValue();
             BigDecimal pancakePrice = BigDecimal.valueOf(0);
 
             for(IngredientDTO ingredient: pancakeIngredients) {
@@ -39,7 +39,7 @@ public class OrderUtils {
                 pancakePrice = pancakePrice.add(ingredient.getPrice());
             }
 
-            orderedPancakes.add(new OrderPancake(pancakeIngredients, pancakePrice));
+            orderedPancakes.add(new OrderPancake(entry.getKey(), pancakeIngredients, pancakePrice));
         }
 
         return new OrderContent(orderedPancakes, totalPrice);

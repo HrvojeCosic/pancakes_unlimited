@@ -6,13 +6,19 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderPancake {
+    private int pancakeId;
     private List<IngredientDTO> ingredients;
     private BigDecimal pancakePrice;
     private Double pancakeDiscount;
 
-    public OrderPancake(List<IngredientDTO> ingredients, BigDecimal pancakePrice) {
+    public OrderPancake(int pancakeId, List<IngredientDTO> ingredients, BigDecimal pancakePrice) {
+        this.pancakeId = pancakeId;
         this.ingredients = ingredients;
         this.pancakePrice = pancakePrice;
+    }
+
+    public int getPancakeId() {
+        return pancakeId;
     }
 
     public List<IngredientDTO> getIngredients() {
@@ -31,6 +37,9 @@ public class OrderPancake {
         this.ingredients = ingredients;
     }
 
+    public void setPancakeId(int id) {
+        this.pancakeId = id;
+    }
     public void setPancakePrice(BigDecimal pancakePrice) {
         this.pancakePrice = pancakePrice;
     }
