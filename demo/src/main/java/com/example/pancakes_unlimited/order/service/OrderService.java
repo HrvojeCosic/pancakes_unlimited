@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Transactional(rollbackOn = InvalidInputException.class)
 @Service
@@ -61,6 +62,14 @@ public class OrderService implements IOrderService {
                 .setDescription(createdOrder.getDescription())
                 .setTimestamp(createdOrder.getTimestamp())
                 .setPancakeIds(newOrder.getPancakeIds());
+    }
+
+    @Override
+    public List<OrderDTO> getAllOrders() {
+        List<PancakeOrderEntity> ordersMainInfo = orderRepository.findAll();
+        //TODO: CREATE SEPARATE LOGIC FOR COMPOSING ALL ORDERS
+        return ordersMainInfo.stream().map(orderMainInfo -> getOrder(orderMainInfo.getId()))
+                .collect(Collectors.toList());
     }
 
     @Override

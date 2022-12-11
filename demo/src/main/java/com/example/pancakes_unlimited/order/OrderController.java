@@ -5,6 +5,8 @@ import com.example.pancakes_unlimited.order.type.OrderDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/order")
 public class OrderController {
@@ -18,6 +20,12 @@ public class OrderController {
     public ResponseEntity<OrderDTO> newOrder(@RequestBody OrderDTO newOrder) {
         OrderDTO createdOrder = service.createOrder(newOrder);
         return ResponseEntity.ok(createdOrder);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<OrderDTO>> getAllOrders() {
+        List<OrderDTO> allOrders = service.getAllOrders();
+        return ResponseEntity.ok(allOrders);
     }
 
     @GetMapping("/{id}")
