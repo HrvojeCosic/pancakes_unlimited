@@ -82,13 +82,11 @@ public class OrderService implements IOrderService {
         OrderContent orderContent = OrderUtils.composeOrderContent(pancakeByIngredients);
         new DiscountMaker(orderContent).createDiscount();
 
-        Map<Integer, OrderContent> formattedOrderContent = new HashMap<>();
-        formattedOrderContent.put(orderId, orderContent);
-
         return new OrderDTO()
+                .setId(orderId)
                 .setDescription(orderMainInfo.getDescription())
                 .setTimestamp(orderMainInfo.getTimestamp())
-                .setOrderContentByOrderIds(formattedOrderContent)
+                .setOrderContentByOrderIds(orderContent)
                 .setPancakeIds(pancakeByIngredients.keySet().stream().toList());
     }
 }

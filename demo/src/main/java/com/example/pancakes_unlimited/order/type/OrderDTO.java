@@ -3,15 +3,18 @@ package com.example.pancakes_unlimited.order.type;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Map;
 
 public class OrderDTO {
 
+    private int id;
     private String description;
     private OffsetDateTime timestamp;
     private List<Integer> pancakeIds;
-    private Map<Integer, OrderContent> orderContentByIds;
+    private OrderContent orderContent;
 
+    public int getId() {
+        return id;
+    }
     public String getDescription() {
         return description;
     }
@@ -23,10 +26,14 @@ public class OrderDTO {
     public List<Integer> getPancakeIds() {
         return pancakeIds;
     }
-    public Map<Integer, OrderContent> getPancakesByOrder() {
-        return orderContentByIds;
+    public OrderContent getOrderContent() {
+        return orderContent;
     }
 
+    public OrderDTO setId(int id) {
+        this.id = id;
+        return this;
+    }
     public OrderDTO setDescription(String description) {
         this.description = description;
         return this;
@@ -42,8 +49,8 @@ public class OrderDTO {
         return this;
     }
 
-    public OrderDTO setOrderContentByOrderIds(Map< Integer, OrderContent> pancakesByOrder) {
-        this.orderContentByIds = pancakesByOrder;
+    public OrderDTO setOrderContentByOrderIds(OrderContent orderContent) {
+        this.orderContent = orderContent;
         return this;
     }
 }
