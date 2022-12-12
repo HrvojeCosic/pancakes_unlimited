@@ -42,11 +42,6 @@ public class IngredientService implements IIngredientService {
     }
 
     @Override
-    public void deleteIngredient(int ingredientId) {
-
-    }
-
-    @Override
     public IngredientDTO updateIngredient(int ingredientId, IngredientDTO payload) {
         String name = payload.getName();
         BigDecimal price = payload.getPrice();

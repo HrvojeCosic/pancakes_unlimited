@@ -11,11 +11,11 @@ public class ReportUtils {
         List<IngredientDTO> ingredientsForReport = new ArrayList<>();
         for (IngredientEntity ingredient : ingredients) {
             ingredientsForReport.add(
-                    new IngredientDTO()
-                            .setName(ingredient.getName())
-                            .setPrice(ingredient.getPrice())
-                            .setCategory_id(ingredient.getCategoryId())
-                            .setIsHealthy(ingredient.getIsHealthy())
+                new IngredientDTO()
+                        .setName(ingredient.getName())
+                        .setPrice(ingredient.getPrice())
+                        .setCategory_id(ingredient.getCategoryId())
+                        .setIsHealthy(ingredient.getIsHealthy())
             );
         }
         return ingredientsForReport;

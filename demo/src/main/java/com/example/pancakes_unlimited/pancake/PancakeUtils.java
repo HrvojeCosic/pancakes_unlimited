@@ -8,7 +8,7 @@ import java.util.*;
 public class PancakeUtils {
     public static Map<Integer, List<IngredientDTO>> aggregatePancakesById (Collection<PancakeWithIngredient> orderInfo) {
 
-        Map<Integer, List<IngredientDTO>> pancakeByIngredients = new HashMap<>();
+        Map<Integer, List<IngredientDTO>> ingredientsByPancake = new HashMap<>();
 
         for(PancakeWithIngredient pancake: orderInfo) {
             int pancake_id = pancake.getPancake_id();
@@ -19,16 +19,16 @@ public class PancakeUtils {
                     .setCategory_name(pancake.getIngredient_category_name())
                     .setIsHealthy(pancake.getIngredientIsHealthy());
 
-            if (!pancakeByIngredients.containsKey(pancake_id)) {
+            if (!ingredientsByPancake.containsKey(pancake_id)) {
                 List<IngredientDTO> ingredients = new ArrayList<>();
                 ingredients.add(pancakeIngredient);
-                pancakeByIngredients.put(pancake_id, ingredients);
+                ingredientsByPancake.put(pancake_id, ingredients);
             } else {
-                List<IngredientDTO> existingPancake = pancakeByIngredients.get(pancake_id);
+                List<IngredientDTO> existingPancake = ingredientsByPancake.get(pancake_id);
                 existingPancake.add(pancakeIngredient);
             }
         }
 
-        return pancakeByIngredients;
+        return ingredientsByPancake;
     }
 }

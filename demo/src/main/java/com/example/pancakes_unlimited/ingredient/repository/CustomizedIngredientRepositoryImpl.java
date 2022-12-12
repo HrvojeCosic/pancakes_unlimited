@@ -25,7 +25,7 @@ public class CustomizedIngredientRepositoryImpl implements CustomizedIngredientR
     @Override
     public IngredientDTO createIngredient(String name, BigDecimal price, int categoryId) {
         Optional<CategoryEntity> chosenCategory = categoryRepository.findById(categoryId);
-        if (!chosenCategory.isPresent()) {
+        if (chosenCategory.isEmpty()) {
             throw new ResourceNotFoundException("Chosen ingredient category does not exist.");
         }
 
@@ -40,20 +40,17 @@ public class CustomizedIngredientRepositoryImpl implements CustomizedIngredientR
 
     @Override
     public IngredientDTO updateIngredient(int ingredientId, String name, BigDecimal price, int categoryId) {
-        Optional<IngredientEntity> chosenIngredient = ingredientRepository.findById(ingredientId);
-        if (!chosenIngredient.isPresent()) {
-            throw new ResourceNotFoundException("Ingredient does not exist.");
-        }
+        IngredientEntity chosenIngredient = ingredientRepository.findById(ingredientId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ingredient does not exist."));
 
-        IngredientEntity ingredientToUpdate = chosenIngredient.get();
-        if (name != null) { ingredientToUpdate.setName(name); }
-        if (price != null) { ingredientToUpdate.setPrice(price); }
+        if (name != null) { chosenIngredient.setName(name); }
+        if (price != null) { chosenIngredient.setPrice(price); }
         if (categoryId != 0) {
             Optional<CategoryEntity> chosenCategory = categoryRepository.findById(categoryId);
-            if (!chosenCategory.isPresent()) {
+            if (chosenCategory.isEmpty()) {
                 throw new ResourceNotFoundException("Chosen ingredient category does not exist.");
             }
-            ingredientToUpdate.setCategoryByCategoryId(chosenCategory.get());
+            chosenIngredient.setCategoryByCategoryId(chosenCategory.get());
         }
         return new IngredientDTO().setName(name).setPrice(price).setCategory_id(categoryId);
     }

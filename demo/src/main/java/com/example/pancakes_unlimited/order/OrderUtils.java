@@ -26,11 +26,11 @@ public class OrderUtils {
         return null;
     }
 
-    public static OrderContent composeOrderContent(Map<Integer, List<IngredientDTO>> pancakeByIngredients) {
+    public static OrderContent composeOrderContent(Map<Integer, List<IngredientDTO>> ingredientsByPancake) {
         BigDecimal totalPrice = BigDecimal.valueOf(0);
         List<OrderPancake> orderedPancakes = new ArrayList<>();
 
-        for (Map.Entry<Integer, List<IngredientDTO>> entry : pancakeByIngredients.entrySet()) {
+        for (Map.Entry<Integer, List<IngredientDTO>> entry : ingredientsByPancake.entrySet()) {
             List<IngredientDTO> pancakeIngredients = entry.getValue();
             BigDecimal pancakePrice = BigDecimal.valueOf(0);
 

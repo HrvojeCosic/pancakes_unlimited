@@ -41,7 +41,7 @@ public class ApplicationSecurityConfiguration {
         userDetails.add(new User("employee",
                 "$2a$12$KHlbbvTy2q9A2hVjKX6d4.zzpMBGGPqeQKyjRZvsvDkBEWOij9lGq",
                 employeeRoles));
-        userDetails.add(new User("store owner",
+        userDetails.add(new User("owner",
                 "$2a$12$UWlVqA2qy69SKqqKjc8YcO7nDnU3MSzy/VjkerYwTGbv6wQO1zrQS",
                 storeOwnerRoles));
         return new InMemoryUserDetailsManager(userDetails);
@@ -68,7 +68,7 @@ public class ApplicationSecurityConfiguration {
             .cors().and()
             .authorizeHttpRequests(authorize ->
                 authorize
-                    .requestMatchers("/api/v1/ingredient/*").hasAuthority("EMPLOYEE")
+                    .requestMatchers("/api/v1/ingredient/**").hasAuthority("EMPLOYEE")
                     .requestMatchers("/api/v1/order/**", "/api/v1/pancake/*").hasAuthority("CUSTOMER")
                     .requestMatchers("/api/v1/report/*").hasAuthority("STORE_OWNER"))
                 .httpBasic();
