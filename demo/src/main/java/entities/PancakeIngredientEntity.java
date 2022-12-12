@@ -22,10 +22,6 @@ public class PancakeIngredientEntity {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Integer getPancakeId() {
         return pancakeId;
     }

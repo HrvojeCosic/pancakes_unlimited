@@ -60,6 +60,15 @@ public class IngredientEntity {
         return this;
     }
 
+    public CategoryEntity getCategoryByCategoryId() {
+        return categoryByCategoryId;
+    }
+
+    public IngredientEntity setCategoryByCategoryId(CategoryEntity categoryByCategoryId) {
+        this.categoryByCategoryId = categoryByCategoryId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -71,12 +80,4 @@ public class IngredientEntity {
     @Override
     public int hashCode() { return Objects.hash(id, name, price, getCategoryId()); }
 
-    public CategoryEntity getCategoryByCategoryId() {
-        return categoryByCategoryId;
-    }
-
-    public IngredientEntity setCategoryByCategoryId(CategoryEntity categoryByCategoryId) {
-        this.categoryByCategoryId = categoryByCategoryId;
-        return this;
-    }
 }
